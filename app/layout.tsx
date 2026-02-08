@@ -1,5 +1,10 @@
 import Providers from "./providers";
 import "./globals.css"
+
+export const metadata = {
+  manifest: "/manifest.json",
+}
+
 export default function RootLayout({
   children,
 }: {
