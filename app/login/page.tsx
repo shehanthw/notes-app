@@ -9,7 +9,7 @@ export default async function LoginPage() {
   const session = await getServerSession(authOptions);
 
   if (session) {
-    redirect("/dashboard"); // redirect logged-in users away from login
+    redirect("/sales"); // redirect logged-in users away from login
   }
 
   return <LoginForm />; // render client form for unauthenticated users

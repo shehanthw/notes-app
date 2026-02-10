@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SalesWizard from "@/components/sales/sales-wizard/SalesWizard";
+import Profile from "@/components/sales/profile/Profile";
 
 interface DashboardContentProps {
   user: {
@@ -14,6 +15,7 @@ interface DashboardContentProps {
 // src/app/dashboard/page.tsx - MOBILE FIRST
 export default function DashboardPage() {
   const [showWizard, setShowWizard] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -25,11 +27,12 @@ export default function DashboardPage() {
             <p className="text-sm text-gray-500">Today, 25 Jan</p>
           </div>
           <div className="flex items-center gap-2">
-            <button className="relative p-1">
+            <button className="relative p-1" onClick={()=> setShowProfile(true)}>
               <div className="h-6 w-6 bg-blue-100 rounded-full flex items-center justify-center">
                 <span className="text-sm font-medium">J</span>
               </div>
             </button>
+            {showProfile && <Profile setShowProfile={setShowProfile} />}
           </div>
         </div>
       </div>
