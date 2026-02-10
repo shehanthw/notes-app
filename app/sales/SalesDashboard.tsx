@@ -1,18 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
-import { signOut } from "next-auth/react";
-import { Button } from "@/components/ui/button";
 import SalesWizard from "@/components/sales/sales-wizard/SalesWizard";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 interface DashboardContentProps {
   user: {

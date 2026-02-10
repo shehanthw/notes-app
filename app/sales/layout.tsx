@@ -1,5 +1,3 @@
-import Navbar from "@/components/mobile/navbar";
-import BottomNav from "@/components/mobile/bottomNav";
 import Providers from "../providers";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
