@@ -9,17 +9,17 @@ interface Props {
 const Profile = ({ setShowProfile }: Props) => {
   return (
     <div className="absolute right-0 top-0 h-screen w-screen bg-white border text-md py-2 rounded-md">
-      <div className="h-5 px-2 flex justify-end">
+      <div className="h-auto mt-4 mr-5 flex justify-end">
         <button onClick={() => setShowProfile(false)}>
           <X className="h-5 w-5" />
         </button>
       </div>
-      <div className="h-10 px-2 border-b border-neutral-200/50 flex items-center">
+      <div className="h-10 px-6 border-b border-neutral-200/50 flex items-center">
         Shehanth Wanigasinghe
       </div>
-      <div className="h-10 px-2 border-b border-neutral-200/50 flex items-center">Admin</div>
-      <div className="h-10 px-2 border-b border-neutral-200/50 flex items-center">0718716076</div>
-      <div className="h-18 px-2 border-neutral-200/50 flex items-center">
+      <div className="h-10 px-6 border-b border-neutral-200/50 flex items-center">Admin</div>
+      <div className="h-10 px-6 border-b border-neutral-200/50 flex items-center">0718716076</div>
+      <div className="h-18 px-6 border-neutral-200/50 flex items-center">
         <button
           onClick={() => signOut({ callbackUrl: "/login" })}
           className="px-3 py-1 bg-red-600 text-white rounded-md mb-5"

@@ -20,7 +20,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Fixed Header */}
-      <div className="sticky top-0 z-40 bg-white border-b px-4 py-3">
+      <div className="sticky top-0 z-50 bg-white border-b px-4 py-3">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-lg font-semibold">Good Morning</h1>
@@ -38,7 +38,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Main Content - Single Column */}
-      <main className="p-4 space-y-6">
+      <main className="p-4 space-y-6 overflow-y-auto w-full pb-24">
         {/* Daily Target Progress */}
         <div className="bg-white rounded-2xl p-4 border">
           <div className="flex items-center justify-between mb-3">
