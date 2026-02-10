@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import DashboardContent from "./DashboardContent"; // client component
+import SalesDashboard from "./SalesDashboard";
 
 interface DashboardContentProps {
   user: {
@@ -18,5 +18,5 @@ export default async function DashboardPage() {
     redirect("/login"); // redirect if not authenticated
   }
 
-  return <DashboardContent user={session.user!} />; // pass session.user to client component
+  return <SalesDashboard  />; // pass session.user to client component
 }

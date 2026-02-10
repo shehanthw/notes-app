@@ -16,7 +16,7 @@ export default function LoginForm() {
       redirect: true,
       username,
       password,
-      callbackUrl: "/dashboard", // redirect after login
+      callbackUrl: "/sales", // redirect after login
     });
   };
 
