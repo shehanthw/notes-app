@@ -24,7 +24,6 @@ const UsersPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch users on component mount
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -82,15 +81,6 @@ const UsersPage = () => {
         alert("Failed to delete user");
       }
     }
-  };
-
-  // Format date
-  const formatDate = (date: Date) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
   };
 
   // Get role badge color
@@ -232,14 +222,6 @@ const UsersPage = () => {
                   </div>
                   
                   <div className="flex items-center gap-4 mt-3">
-                    <div>
-                      <div className="text-gray-500 text-sm">Joined</div>
-                      <div className="font-medium">2025</div>
-                    </div>
-                    <div>
-                      <div className="text-gray-500 text-sm">Last Updated</div>
-                      <div className="font-medium">2026</div>
-                    </div>
                   </div>
                 </div>
 

@@ -35,6 +35,7 @@ export const createUser = async (data: User) => {
         password: hashedPassword,
       },
     });
+    revalidatePath("/sales/users");
   } catch (error) {
     console.error("Error creating user:", error);
     if (error instanceof Error) {
@@ -43,9 +44,6 @@ export const createUser = async (data: User) => {
 
     return { error: "Failed to create user" };
   }
-
-  revalidatePath("/sales/users");
-  redirect("/sales/users");
 };
 
 
@@ -70,5 +68,23 @@ export const deleteUser = async (id: number) => {
   } catch (error) {
     console.error("Error deleting user:", error);
     return { success: false, error: "Failed to delete user" };
+  }
+};
+
+export const getUserById = async (id: number) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id }
+      }
+    );
+    
+    if (!user) {
+      return undefined; // Just return null if not found
+    }
+    
+    return user;
+  } catch (error) {
+    console.error("Error getting user by id:", error);
+    throw new Error("Failed to get user by id"); // Throw error to be handled by caller
   }
 };

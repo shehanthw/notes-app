@@ -25,6 +25,8 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { createUser } from "@/app/actions/users";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface UsersWizardProps {
   isOpen: boolean;
@@ -32,12 +34,12 @@ interface UsersWizardProps {
 }
 
 type FieldProps = {
-  value: any;              // Current field value
-  onChange: (value: any) => void;  // Function to update the value
-  onBlur: () => void;      // Function to trigger validation
-  name: string;            // Field name
-  ref: React.Ref<any>;     // React ref
-  disabled?: boolean;      // Whether field is disabled
+  value: any; // Current field value
+  onChange: (value: any) => void; // Function to update the value
+  onBlur: () => void; // Function to trigger validation
+  name: string; // Field name
+  ref: React.Ref<any>; // React ref
+  disabled?: boolean; // Whether field is disabled
 };
 
 // Define Zod schema
@@ -51,6 +53,7 @@ const formSchema = z.object({
 
 export default function UserWizard({ isOpen, onClose }: UsersWizardProps) {
   const [step, setStep] = useState(1);
+  const router = useRouter();
   const roles = ["Admin", "Sales", "Delivery", "Collection"];
 
   // Initialize React Hook Form with Zod
@@ -80,10 +83,15 @@ export default function UserWizard({ isOpen, onClose }: UsersWizardProps) {
 
   // Handle form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Form data:", values);
-    await createUser(values);
+    try {
+      await createUser(values);
+    } catch (error) {
+      console.log("Error on adding new user" + error);
+    }
+    closeWizard();
     form.reset();
-    onClose();
+    router.push("/sales/users");
+    router.refresh();
   }
 
   if (!isOpen) return null;
@@ -202,7 +210,12 @@ export default function UserWizard({ isOpen, onClose }: UsersWizardProps) {
                         Phone <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input className="py-6" placeholder="Enter phone number" type="tel" {...field} />
+                        <Input
+                          className="py-6"
+                          placeholder="Enter phone number"
+                          type="tel"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -219,7 +232,12 @@ export default function UserWizard({ isOpen, onClose }: UsersWizardProps) {
                         Password <span className="text-red-500">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input className="py-6" placeholder="Enter password" type="password" {...field} />
+                        <Input
+                          className="py-6"
+                          placeholder="Enter password"
+                          type="password"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -236,7 +254,7 @@ export default function UserWizard({ isOpen, onClose }: UsersWizardProps) {
           <div className="sticky bottom-0 border-t bg-white p-4">
             <Button
               onClick={form.handleSubmit(onSubmit)}
-              className="w-full py-6 rounded-2xl font-medium border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors"
+              className="w-full rounded-2xl py-6 h-full font-medium border border-blue-600 text-blue-600 hover:bg-blue-50 transition-colors"
               variant="outline"
             >
               Add user
