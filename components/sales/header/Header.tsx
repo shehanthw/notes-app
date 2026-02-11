@@ -12,7 +12,8 @@ const Header = ({ setShowProfile, showProfile }: Props) => {
   const [pageTitle, setPageTitle] = useState("");
 
   useEffect(() => {
-    pathname === ("/sales/products") && setPageTitle("Products");
+    pathname.includes("products") && setPageTitle("Products");
+    pathname.includes("users") && setPageTitle("Users");
     pathname === ("/sales") && setPageTitle("Sales");
   }, [pathname]);
 

@@ -5,15 +5,16 @@ import React, { Dispatch, SetStateAction, useEffect } from "react";
 interface Props {
   setShowWizard: Dispatch<SetStateAction<boolean>>;
   setShowProductWizard: Dispatch<SetStateAction<boolean>>;
+  setShowMenu: Dispatch<SetStateAction<boolean>>;
+  setShowUserWizard: Dispatch<SetStateAction<boolean>>;
 }
 
-const BottomNav = ({ setShowWizard, setShowProductWizard }: Props) => {
+const BottomNav = ({ setShowWizard, setShowProductWizard, setShowMenu, setShowUserWizard }: Props) => {
    const pathname = usePathname();
 
   const navLinks = [
-    { id: 1, icon: "🏠", path: "/sales" },
-    { id: 2, icon: "📋", path: "/sales" },
-    { id: 3, icon: "📦", path: "/sales/products" },
+    { id: 1, icon: "📋", path: "/sales" },
+    { id: 2, icon: "📦", path: "/sales/products" },
   ];
 
   const showWizard = () => {
@@ -24,6 +25,10 @@ const BottomNav = ({ setShowWizard, setShowProductWizard }: Props) => {
     if(pathname === "/sales") {
       setShowWizard(true);
     }
+
+    if(pathname === "/sales/users") {
+      setShowUserWizard(true);
+    }
   }
 
   useEffect(() => {
@@ -32,6 +37,12 @@ const BottomNav = ({ setShowWizard, setShowProductWizard }: Props) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t">
       <div className="flex justify-around py-3">
+        <button
+          onClick={() => setShowMenu(true)}
+          className="h-12 w-12 flex items-center justify-center text-2xl active:scale-95 transition-transform"
+        >
+          ☰
+        </button>
         {navLinks.map((item, key) => (
           <Link key={key} className="text-2xl p-2" href={item.path}>
             {item.icon}

@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+   url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  name     String?
+  role String @default("user")
+  phone    String
+  password String
+  orders   Order[]
+
+  @@map("users")
+}
+
+model Product {
+  id            Int     @id @default(autoincrement())
+  name          String
+  description   String?
+  buying_price  Float
+  selling_price Float
+  weight        Float
+  inventories   Inventory[]
+  orderItems OrderItem[]
+
+  @@map("product")
+}
+
+model Customer {
+  id Int @id @default(autoincrement())
+  name String
+  phone String
+  email String
+  address String
+  location String
+  orders   Order[]
+
+  @@map("customer")
+}
+
+model Inventory {
+  id Int @id @default(autoincrement())
+  productId Int
+  availableCount Int
+  reservedCount Int 
+  storeName String
+  storeAddress String
+  product        Product @relation(fields: [productId], references: [id])
+
+  @@map("inventory")
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  customerId Int
+  userId Int
+  orderDate Int 
+  status String
+  installments Int
+  totalOrderPrice String
+  orderItems OrderItem[]
+  customer        Customer @relation(fields: [customerId], references: [id])
+  user        User @relation(fields: [userId], references: [id])
+
+  @@map("order")
+}
+
+model OrderItem {
+  id Int @id @default(autoincrement())
+  orderId Int
+  productId Int
+  quantity Int
+  product        Product @relation(fields: [productId], references: [id])
+  order        Order @relation(fields: [orderId], references: [id])
+
+  @@map("orderItem")
+}
