@@ -13,6 +13,12 @@ const prisma = globalForPrisma.prisma || new PrismaClient({
   adapter,
 })
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+// Always set global - this is the key fix!
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma
+} else {
+  // In production (Vercel), we still want to cache to avoid too many connections
+  globalForPrisma.prisma = prisma
+}
 
 export default prisma
